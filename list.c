@@ -7,6 +7,8 @@ static Node *head = NULL;
 
 Node *add_item(const char *word) {
   Node *new = malloc(sizeof(Node));
+  if (new == NULL)
+    return NULL;
 
   if (head == NULL) {
     new->word = strndup(word, SIZE);

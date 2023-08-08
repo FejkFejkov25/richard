@@ -8,7 +8,7 @@
 #define PATH 128
 #define DELIM " \n\t"
 
-char *shell = "bash";
+char *shell = NULL;
 int amount = 3;
 
 void usage(void) {
@@ -33,6 +33,14 @@ char *parse_string(char *str) {
   return command;
 }
 
+char *basename(char *str) {
+  for (int i = strlen(str) - 1; i > 0; i--) {
+    if (str[i] == '/')
+      return (str + i + 1);
+  }
+  return str;
+}
+
 int main(int argc, char *argv[]) {
 
   for (int i = 1; i < argc; i++) {
@@ -43,6 +51,8 @@ int main(int argc, char *argv[]) {
     if ((argv[i][0] == '-') && (argv[i][1] == 'h'))
       usage();
   }
+  if (shell == NULL)
+    shell = basename(getenv("SHELL"));
 
   char filename[PATH];
   char *buffer = malloc(SIZE);
