@@ -60,7 +60,6 @@ void sort_list(void) {
     for (int j = 0; j < len - i - 1; j++) {
       Node *p1 = *h;
       Node *p2 = p1->next;
-
       if (p1->count < p2->count)
         *h = swap(p1, p2);
 
@@ -69,7 +68,6 @@ void sort_list(void) {
   }
 }
 
-#if 0
 void cleanlist() {
   Node *current = head;
 
@@ -77,6 +75,6 @@ void cleanlist() {
     head = current->next;
     free(current->word);
     free(current);
+    current = head;
   }
 }
-#endif

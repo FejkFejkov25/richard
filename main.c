@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+// Buffer size
 #define SIZE 1024
+// Max path length
 #define PATH 128
 #define DELIM " \n\t"
 
@@ -19,7 +21,7 @@ void usage(void) {
 }
 
 /* parse string for first word and return it
- * if it is sudo/doas - skip*/
+ * TODO: if it is sudo/doas - skip*/
 char *parse_string(char *str) {
   if (*str == '\n')
     return NULL;
@@ -42,6 +44,7 @@ char *basename(char *str) {
 }
 
 int main(int argc, char *argv[]) {
+  atexit(cleanlist);
 
   for (int i = 1; i < argc; i++) {
     if ((argv[i][0] == '-') && (argv[i][1] == 's'))
@@ -66,6 +69,7 @@ int main(int argc, char *argv[]) {
     return -1;
   }
 
+  // Read file while file not ends
   while (feof(file) == 0) {
     fgets(buffer, SIZE, file);
     if (buffer[0] == '#')
@@ -75,6 +79,7 @@ int main(int argc, char *argv[]) {
     if (temp == NULL)
       continue;
 
+    // Search for word in list. If not found - create new
     Node *item = lookup(temp);
     if (item != NULL)
       item->count++;

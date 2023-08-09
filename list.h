@@ -12,6 +12,6 @@ Node *add_item(const char *word);
 Node *lookup(char *word);
 Node *get_head(void);
 void sort_list(void);
-// Node *remove_item(const char *word);
+void cleanlist(void);
 
 #endif
