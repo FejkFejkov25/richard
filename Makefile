@@ -1,5 +1,5 @@
 all:
-	gcc -o richard -Wall main.c list.c
+	gcc -o richard -Wall ./src/main.c ./src/list.c
 
 clean:
 	rm ./richard
