@@ -1,7 +1,7 @@
 OBJ := main.o list.o
 CC = gcc
 CFLAGS =-c -Wall -I./include
-LDFLAGS =
+LDFLAGS = -lm
 PROG = richard
 
 all: $(OBJ)
@@ -14,4 +14,4 @@ list.o: ./src/list.c
 	$(CC) $(CFLAGS) ./src/list.c
 
 clean:
-	rm ./richard *.o
+	rm $(PROG) *.o

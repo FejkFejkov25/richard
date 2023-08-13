@@ -1,5 +1,6 @@
 #include <colors.h>
 #include <list.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,8 +11,9 @@
 #define PATH 128
 #define DELIM " \n\t"
 
-char *shell = NULL;
-int amount = 3;
+static char percentage[] = "                    ";
+static char *shell = NULL;
+static int amount = 3;
 
 void usage(void) {
   printf("Usage of richard: -s - specify your shell(default: bash)\n");
@@ -31,16 +33,32 @@ char *parse_string(char *str) {
     return NULL;
 
   char *temp = strtok(str, DELIM);
+  if ((strncmp(temp, "sudo", 5) == 0) || (strncmp(temp, "doas", 5) == 0)) {
+    char *token = strtok(NULL, DELIM);
+    if ((token != NULL) && (token[0] != '-'))
+      temp = token;
+  }
+
   strncpy(command, temp, SIZE);
   return command;
 }
 
 char *basename(char *str) {
-  for (int i = strlen(str) - 1; i > 0; i--) {
+  for (int i = strlen(str) - 1; i > 0; i--)
     if (str[i] == '/')
       return (str + i + 1);
-  }
+
   return str;
+}
+
+void bar(double percent) {
+  for (int i = 0; i < (int)((double)ceil(percent) / 5); i++)
+    percentage[i] = '#';
+}
+
+void bar_reset() {
+  for (int i = 0; i < 20; i++)
+    percentage[i] = ' ';
 }
 
 int main(int argc, char *argv[]) {
@@ -94,6 +112,7 @@ int main(int argc, char *argv[]) {
     total += cur->count;
   }
 
+  // Pretty print
   Node *head = get_head();
   printf(PURPLE "Total commands entered: %d\n", total);
   printf(CYAN "Most used commands:\n");
@@ -102,7 +121,10 @@ int main(int argc, char *argv[]) {
     if (head == NULL)
       break;
     double percent = (double)head->count / (double)total * 100;
-    printf(GREEN "%s -> %d(%.2f%%)\n", head->word, head->count, percent);
+    bar(percent);
+    printf(GREEN "[%s] %s -> %d(%.2f%%)\n", percentage, head->word, head->count,
+           percent);
+    bar_reset();
   }
   printf(CLEAN);
 
