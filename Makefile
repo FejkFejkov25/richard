@@ -1,6 +1,6 @@
 OBJ := main.o list.o
 CC = gcc
-CFLAGS =-c -Wall -I./include
+CFLAGS =-c -Wall -std=c99 -I./include
 LDFLAGS = -lm
 PROG = richard
 

@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+char *my_strdup(const char *str) {
+  size_t l = strlen(str);
+  char *dup = malloc(l + 1);
+  if (dup == NULL)
+    return NULL;
+  strncpy(dup, str, l);
+  return dup;
+}
+
 static Node *head = NULL;
 
 Node *add_item(const char *word) {
@@ -11,12 +20,12 @@ Node *add_item(const char *word) {
     return NULL;
 
   if (head == NULL) {
-    new->word = strndup(word, SIZE);
+    new->word = my_strdup(word);
     new->count = 1;
     new->next = NULL;
     head = new;
   } else {
-    new->word = strndup(word, SIZE);
+    new->word = my_strdup(word);
     new->count = 1;
     new->next = head;
     head = new;

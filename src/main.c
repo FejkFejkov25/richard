@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 // Buffer size
 #define SIZE 1024
 // Max path length
@@ -19,7 +18,7 @@ void usage(void) {
   printf("Usage of richard: -s: specify your shell(default: bash)\n");
   printf("                  -a: amount of lines in top(default: 3)\n");
   printf("                  -h: show this message\n");
-  _exit(0);
+  exit(0);
 }
 
 /* parse string for first word and return it
