@@ -16,9 +16,9 @@ static char *shell = NULL;
 static int amount = 3;
 
 void usage(void) {
-  printf("Usage of richard: -s - specify your shell(default: bash)\n");
-  printf("                  -a - amount of lines in top(default: 3)\n");
-  printf("                  -h - show this message\n");
+  printf("Usage of richard: -s: specify your shell(default: bash)\n");
+  printf("                  -a: amount of lines in top(default: 3)\n");
+  printf("                  -h: show this message\n");
   _exit(0);
 }
 
