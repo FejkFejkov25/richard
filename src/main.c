@@ -1,4 +1,5 @@
 #include <colors.h>
+#include <getopt.h>
 #include <list.h>
 #include <math.h>
 #include <stdio.h>
@@ -63,13 +64,24 @@ void bar_reset() {
 int main(int argc, char *argv[]) {
   atexit(cleanlist);
 
-  for (int i = 1; i < argc; i++) {
-    if ((argv[i][0] == '-') && (argv[i][1] == 's'))
-      shell = argv[++i];
-    if ((argv[i][0] == '-') && (argv[i][1] == 'a'))
-      amount = atoi(argv[++i]);
-    if ((argv[i][0] == '-') && (argv[i][1] == 'h'))
-      usage();
+  char ch;
+  while ((ch = getopt(argc, argv, "a:s:h")) != -1) {
+    switch (ch) {
+    case 'a':
+      amount = atoi(optarg);
+      break;
+    case 's':
+      shell = optarg;
+      break;
+    case ':':
+      perror("Missing value");
+      // fprintf(stderr, "Missing value\n");
+      exit(1);
+    case '?':
+      perror("Unknown flag");
+      // fprintf(stderr, "Unknown flag\n");
+      exit(1);
+    }
   }
   if (shell == NULL)
     shell = basename(getenv("SHELL"));
