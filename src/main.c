@@ -74,12 +74,10 @@ int main(int argc, char *argv[]) {
       shell = optarg;
       break;
     case ':':
-      perror("Missing value");
-      // fprintf(stderr, "Missing value\n");
+      fprintf(stderr, "Missing value\n");
       exit(1);
     case '?':
-      perror("Unknown flag");
-      // fprintf(stderr, "Unknown flag\n");
+      fprintf(stderr, "Unknown flag\n");
       exit(1);
     }
   }
