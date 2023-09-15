@@ -19,17 +19,11 @@ Node *add_item(const char *word) {
   if (new == NULL)
     return NULL;
 
-  if (head == NULL) {
-    new->word = my_strdup(word);
-    new->count = 1;
-    new->next = NULL;
-    head = new;
-  } else {
-    new->word = my_strdup(word);
-    new->count = 1;
-    new->next = head;
-    head = new;
-  }
+  new->word = my_strdup(word);
+  new->count = 1;
+  new->next = head;
+  head = new;
+
   return new;
 }
 
