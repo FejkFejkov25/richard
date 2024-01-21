@@ -15,3 +15,11 @@ list.o: ./src/list.c
 
 clean:
 	rm $(PROG) *.o
+
+install:
+	@install -Dm 0755 ./richard /usr/bin/
+
+uninstall:
+	@rm -f /usr/bin/richard
+
+.PHONY: install uninstall

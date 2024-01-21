@@ -22,8 +22,6 @@ void usage(void) {
   exit(0);
 }
 
-/* parse string for first word and return it
- * TODO: if it is sudo/doas - skip*/
 char *parse_string(char *str) {
   if (*str == '\n')
     return NULL;
@@ -117,9 +115,8 @@ int main(int argc, char *argv[]) {
 
   sort_list();
   int total = 0;
-  for (Node *cur = get_head(); cur != NULL; cur = cur->next) {
+  for (Node *cur = get_head(); cur != NULL; cur = cur->next)
     total += cur->count;
-  }
 
   // Pretty print
   Node *head = get_head();
